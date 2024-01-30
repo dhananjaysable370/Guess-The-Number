@@ -39,6 +39,8 @@ form {
 label {
     display: block;
     text-align: start;
+    font: 'Poppins';
+    text-transform: capitalize;
     margin-left: 48px;
     margin-bottom: 10px;
     color: #333;

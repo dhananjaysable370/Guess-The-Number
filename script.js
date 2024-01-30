@@ -11,6 +11,7 @@ const p = document.createElement('p')
 let prevGuess = []
 let numGuesses = 1
 let playGame = true
+let attempts = 10;
 
 if (playGame) {
     submit.addEventListener('click', function (e) {
@@ -45,6 +46,9 @@ function checkGuess(guess) {
     if (guess === randomNumber) {
         displayMessage(`<h2 style="color:green">Congratulation! You Guessed it. in ${numGuesses - 1} Attempts.</h2>`)
         endGame()
+    } else if (attempts === 0) {
+        displayMessage(`Game Over! Random number was ${randomNumber}`)
+    } else if (guess > randomNumber) {
     } else if (guess < randomNumber) {
         displayMessage(`Number is TOO Low!`)
     } else if (guess > randomNumber) {
@@ -55,9 +59,9 @@ function checkGuess(guess) {
 function displayGuesses(guess) {
     userInput.value = ""
     guesses.innerHTML += `[${guess}] `
+    attempts--;
     numGuesses++;
-    if (numGuesses === 11) {
-        displayMessage(`Game Over! Random number was ${randomNumber}`)
+    if (attempts === 0) {
         endGame()
     }
     remainingSlots.innerHTML = `${11 - numGuesses}`
@@ -93,7 +97,8 @@ function newGame() {
         guesses.innerHTML = ''
         remainingSlots.innerHTML = `${11 - numGuesses}`
         userInput.removeAttribute('disabled')
-        startOver.removeChild(p)
+        startOver.removeChild(p);
+        displayMessage("")
         playGame = true
     })
 }
